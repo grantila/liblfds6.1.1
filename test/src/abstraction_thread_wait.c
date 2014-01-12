@@ -51,7 +51,7 @@
 
 
 /****************************************************************************/
-#if (defined __unix__)
+#if (defined __unix__ || defined __APPLE__)
 
   /* TRD : any UNIX on any CPU with any compiler
 

@@ -93,7 +93,7 @@
     #define _InterlockedCompareExchangePointer(destination, exchange, compare) _InterlockedCompareExchange((volatile long *) destination, (long) exchange, (long) compare)
   #endif
 
-  #if (defined __unix__ && defined __x86_64__ && __GNUC__)
+  #if ((defined __unix__ || defined __APPLE__) && defined __x86_64__ && __GNUC__)
     // TRD : any UNIX with GCC on x64
     #include <assert.h>
     #include <stdio.h>
@@ -111,7 +111,7 @@
     #define LFDS611_BARRIER_PROCESSOR_FULL   __sync_synchronize()
   #endif
 
-  #if (defined __unix__ && defined __i686__ && __GNUC__)
+  #if ((defined __unix__ || defined __APPLE__) && defined __i686__ && __GNUC__)
     // TRD : any UNIX with GCC on x86
     #include <assert.h>
     #include <stdio.h>
@@ -129,7 +129,7 @@
     #define LFDS611_BARRIER_PROCESSOR_FULL   __sync_synchronize()
   #endif
 
-  #if (defined __unix__ && defined __arm__ && __GNUC__)
+  #if ((defined __unix__ || defined __APPLE__) && defined __arm__ && __GNUC__)
     // TRD : any UNIX with GCC on ARM
     #include <assert.h>
     #include <stdio.h>

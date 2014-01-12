@@ -1,5 +1,8 @@
 #include "internal.h"
 
+#ifdef __APPLE__
+//#include <mach/mach.h>
+#endif
 
 
 
@@ -95,7 +98,7 @@
 
 
 /****************************************************************************/
-#if (defined __unix__)
+#if (defined __unix__ || defined __APPLE__)
 
   /* TRD : any UNIX on any CPU with any compiler
 
@@ -113,8 +116,10 @@
     pthread_attr_t
       attr;
 
+#ifndef __APPLE__
     cpu_set_t
       cpuset;
+#endif
 
     assert( thread_state != NULL );
     // TRD : cpu can be any value in its range
@@ -123,14 +128,22 @@
 
     pthread_attr_init( &attr );
 
+#ifndef __APPLE__
     CPU_ZERO( &cpuset );
     CPU_SET( cpu, &cpuset );
     pthread_attr_setaffinity_np( &attr, sizeof(cpuset), &cpuset );
+#endif
 
     rv_create = pthread_create( thread_state, &attr, thread_function, thread_user_state );
 
     if( rv_create == 0 )
       rv = 1;
+
+#ifdef __APPLE__
+//    Not implemented yet, types collide: thread_state_t
+//    integer_t mask = 1 << cpu;
+//    thread_policy_set( *thread, THREAD_AFFINITY_POLICY, &mask, 1 );
+#endif
 
     pthread_attr_destroy( &attr );
 

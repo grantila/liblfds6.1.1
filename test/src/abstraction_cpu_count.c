@@ -57,9 +57,9 @@
 
 
 /****************************************************************************/
-#if (defined __linux__ && defined __GNUC__)
+#if ((defined __linux__ || defined __APPLE__) && defined __GNUC__)
 
-  /* TRD : Linux on any CPU with GCC
+  /* TRD : Linux and Mac OSX on any CPU with GCC
 
            this function I believe is Linux specific and varies by UNIX flavour
 

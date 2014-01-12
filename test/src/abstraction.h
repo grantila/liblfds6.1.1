@@ -27,9 +27,10 @@
   #define CALLING_CONVENTION  
 #endif
 
-#if (defined __unix__ && defined __GNUC__)
+#if ((defined __unix__ || defined __APPLE__) && defined __GNUC__)
   /* TRD : any UNIX on any CPU with GCC
 
+           __APPLE__  indicates Mac OSX
            __unix__   indicates Solaris, Linux, HPUX, etc
            __GNUC__   indicates GCC
   */
